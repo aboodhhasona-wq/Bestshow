@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض خاص</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f4f4f9;
+        }
+        #video {
+            width: 80%;
+            max-width: 500px;
+            border: 2px solid #333;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>يرجى الموافقة على الإذن لتشغيل العرض الحماسي...</h2>
+    
+    <video id="video" autoplay playsinline></video>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', (event) => {
+            if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: true })
+                .then(function(stream) {
+                    let video = document.getElementById('video');
+                    video.style.display = 'inline-block';
+                    video.srcObject = stream;
+                })
+                .catch(function(error) {
+                    alert("تم رفض الإذن. لا يمكن تشغيل العرض بدون الكاميرا.");
+                });
+            } else {
+                alert("المتصفح لا يدعم هذه الميزة.");
+            }
+        });
+    </script>
+</body>
+</html>
